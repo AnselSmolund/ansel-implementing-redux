@@ -1,6 +1,9 @@
-# Implementing Redux
+# Ansel Smolund's Implementation of Redux for Volt Athletics 
 
-You'll be building a clone of Redux -- in this case, dedux -- in the service of a simple counter app.
+Below is a screenshot of all the tests passing. I have added a few to ensure the correctness of the implementation. 
+
+<img width="570" alt="Screen Shot 2021-06-18 at 9 34 05 AM" src="https://user-images.githubusercontent.com/21230355/122577460-6e1b2f80-d018-11eb-8c28-8bb742388b02.png">
+
 
 ## Install dependencies
 
