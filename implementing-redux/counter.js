@@ -1,7 +1,7 @@
 import Dedux from './dedux.js'
 import { useClickHandler } from './hooks/useClickHandler.js'
 import { counter } from './reducers/index.js'
-import { loadState, saveState } from './localStorage.js'
+import { loadState, saveState } from './util/localStorage.js'
 import { counterActions } from './util/constants.js'
 
 const { createStore, applyMiddleware } = Dedux
