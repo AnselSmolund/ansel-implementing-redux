@@ -10,7 +10,6 @@ function createStore(reducer, initialState) {
   let currentState = initialState
   let listeners = []
   const store = {}
-  store.middlewares = []
 
   store.getState = () => currentState
 
