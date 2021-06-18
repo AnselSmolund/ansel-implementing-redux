@@ -1,9 +1,11 @@
 import Dedux from '../dedux'
 const { createStore, applyMiddleware } = Dedux
+import { saveStateMiddleware } from '../counter'
 
 /*======================================================
                           TESTS
 ======================================================*/
+
 describe('dedux', () => {
   describe('createStore', () => {
     it('errors if no reducer function is passed in', () => {
@@ -38,7 +40,21 @@ describe('dedux', () => {
 
       it(`dispatch should take any dispatched action and run it 
           through the reducer function to produce a new state.`, () => {
-        const reducer = () => {} // Your reducer function here!
+        const reducer = (
+          state = {
+            foo: 'bar',
+          },
+          action
+        ) => {
+          switch (action.type) {
+            case 'BAZIFY': {
+              state.foo = 'baz'
+              return state
+            }
+            default:
+              return state
+          }
+        }
 
         const store = createStore(reducer)
 
@@ -71,6 +87,14 @@ describe('dedux', () => {
         expect(subscriber).toHaveBeenCalledWith(42)
       })
 
+      it('errors if listener is not a function', () => {
+        const subscriber = {}
+        const store = createStore(() => ({}))
+        expect(() => {
+          store.subscribe(subscriber)
+        }).toThrow()
+      })
+
       it(`will return a function that allows you to unsubscribe`, () => {
         const subscriber = jest.fn()
         const reducer = (state = 0, action = {}) => {
@@ -98,7 +122,33 @@ describe('dedux', () => {
     })
   })
 
-  describe.skip('applyMiddleware', () => {
+  describe('localStorage', () => {
+    jest.spyOn(Object.getPrototypeOf(window.localStorage), 'getItem')
+    jest.spyOn(Object.getPrototypeOf(window.localStorage), 'setItem')
+
+    it('if no local storage is set return null', () => {
+      expect(localStorage.getItem('state')).toBeNull()
+    })
+
+    it('local storage should save each change of current state if middlware is applied', () => {
+      const reducer = (state = 0, action = {}) => {
+        switch (action.type) {
+          case 'CALCULATE_MEANING_OF_LIFE':
+            return 42
+          default:
+            return state
+        }
+      }
+
+      const store = createStore(reducer)
+      applyMiddleware(store, [saveStateMiddleware])
+      store.dispatch({ type: 'CALCULATE_MEANING_OF_LIFE' })
+
+      expect(localStorage.setItem).toHaveBeenCalled()
+    })
+  })
+
+  describe('applyMiddleware', () => {
     // Don't start this until you've completed part 2 of the challenge
     it('can apply middleware to dispatched actions', () => {
       const reducer = () => null
