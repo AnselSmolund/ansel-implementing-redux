@@ -1,6 +1,6 @@
 
 # Ansel Smolund's Implementation of Redux for Volt Athletics 
-<img width="300" alt="gif" src="https://user-images.githubusercontent.com/21230355/122578138-352f8a80-d019-11eb-9282-01db081c68d3.gif">
+![Demo File](https://github.com/AnselSmolund/ansel-implementing-redux/blob/main/demo/counter.gif)
 
 Below is a screenshot of all the tests passing. I have added a few to ensure the correctness of the implementation. 
 
